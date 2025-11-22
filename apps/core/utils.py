@@ -8,7 +8,82 @@ from typing import Any, Dict, Iterable, Iterator, List, Optional
 from urllib.parse import parse_qs, urlparse
 
 import bleach
-import hoep as h
+# Drop dependency on Hoep (ancient/compiled). Prefer a maintained pure‑Python markdown renderer.
+# We try a few common libraries in order of preference and degrade gracefully.
+_md_backend = None
+_md_backend_name = None
+try:  # markdown-it-py (modern CommonMark + many plugins)
+    from markdown_it import MarkdownIt  # type: ignore
+    from mdit_py_plugins.footnote import footnote  # type: ignore
+    from mdit_py_plugins.tasklists import tasklists  # type: ignore
+    from mdit_py_plugins.anchors import anchors  # type: ignore
+    from mdit_py_plugins.attrs import attrs_plugin  # type: ignore
+
+    _md_backend_name = "markdown-it-py"
+    _md_backend = (
+        MarkdownIt("commonmark", {'html': False})
+        .enable(["table", "strikethrough", "linkify"])  # fenced code is on by default
+        .use(footnote)
+        .use(tasklists)
+        .use(anchors)
+        .use(attrs_plugin)
+    )
+except Exception:  # noqa: BLE001 - fall back silently
+    try:  # mistune (fast, pure python)
+        import mistune  # type: ignore
+
+        class _MistuneRenderer:
+            def __init__(self):
+                # Use mistune v2 API if available; fallback to v0/v1
+                try:
+                    # v2
+                    from mistune import create_markdown  # type: ignore
+
+                    plugins = [
+                        "strikethrough",
+                        "table",
+                        "task_lists",
+                        "speedup",
+                    ]
+                    self._md = create_markdown(plugins=plugins)
+                except Exception:
+                    # Very old API
+                    self._md = mistune.Markdown()
+
+            def render(self, text: str) -> str:
+                return self._md(text)
+
+        _md_backend_name = "mistune"
+        _md_backend = _MistuneRenderer()
+    except Exception:
+        try:  # python-markdown
+            import markdown  # type: ignore
+
+            class _MarkdownRenderer:
+                def __init__(self):
+                    exts = [
+                        "extra",  # tables, etc.
+                        "sane_lists",
+                        "codehilite",
+                        "toc",
+                        "nl2br",
+                        "smarty",
+                    ]
+                    try:
+                        self._md = markdown.Markdown(extensions=exts)
+                    except Exception:
+                        self._md = None
+
+                def render(self, text: str) -> str:
+                    if self._md is None:
+                        return text
+                    return self._md.reset().convert(text)
+
+            _md_backend_name = "python-markdown"
+            _md_backend = _MarkdownRenderer()
+        except Exception:
+            _md_backend_name = "plain"
+            _md_backend = None
 import sqids.constants
 from django.conf import settings
 from django.core.cache import InvalidCacheBackendError, caches
@@ -36,18 +111,7 @@ class Empty(enum.Enum):
 
 _empty = Empty.token
 
-# Some details here https://github.com/Anomareh/Hoep
-MARKDOWN_EXTENSIONS = (h.EXT_FENCED_CODE |
-                       h.EXT_AUTOLINK |
-                       h.EXT_STRIKETHROUGH |
-                       h.EXT_TABLES |
-                       h.EXT_QUOTE |
-                       h.EXT_NO_INTRA_EMPHASIS |
-                       h.EXT_SPACE_HEADERS |
-                       h.EXT_MATH |
-                       h.EXT_MATH_EXPLICIT)
-MARKDOWN_RENDER_FLAGS = 0
-markdown = h.Hoep(MARKDOWN_EXTENSIONS, MARKDOWN_RENDER_FLAGS)
+# Deprecated (Hoep) constants removed. We keep the sanitizer as before.
 
 # This is not really about markdown, This is about html tags that will be
 # saved after markdown rendering
@@ -96,11 +160,55 @@ MARKDOWN_ALLOWED_ATTRS = {
 }
 
 
-def render_markdown(text):
-    """Renders markdown, then sanitizes html based on allowed tags"""
-    md_rendered = markdown.render(text)
-    return bleach.clean(md_rendered, tags=MARKDOWN_ALLOWED_TAGS,
+def sanitize_html(html: str) -> str:
+    """Sanitize already-HTML content using the same allow-lists.
+
+    This is used for the new WYSIWYG editor flow that stores HTML.
+    """
+    return bleach.clean(html, tags=MARKDOWN_ALLOWED_TAGS,
                         attributes=MARKDOWN_ALLOWED_ATTRS)
+
+
+def render_rich_text(text_md: str | None, html: str | None = None) -> str:
+    """Prefer sanitized HTML if provided, fallback to Markdown rendering.
+
+    Args:
+        text_md: Legacy Markdown content (optional).
+        html: Preferred HTML content (optional).
+    """
+    if html and html.strip():
+        return sanitize_html(html)
+    return render_markdown(text_md or "")
+
+
+def _render_markdown_raw(text: str) -> str:
+    """Render Markdown to HTML using the best available backend.
+
+    Falls back to returning the original text (escaped by bleach later) if
+    no renderer is available. We intentionally disallow raw HTML in markdown
+    input and rely on bleach allow-lists below for safe output.
+    """
+    if _md_backend_name == "markdown-it-py":
+        # markdown-it-py exposes .render
+        return _md_backend.render(text)  # type: ignore[union-attr]
+    elif _md_backend_name in {"mistune", "python-markdown"}:
+        return _md_backend.render(text)  # type: ignore[union-attr]
+    # Plain fallback: just return text; line breaks handled later by bleach
+    return text
+
+
+def render_markdown(text: str) -> str:
+    """Render markdown and sanitize the HTML output.
+
+    Behavior compatible with previous implementation: returns sanitized HTML
+    limited to MARKDOWN_ALLOWED_TAGS and MARKDOWN_ALLOWED_ATTRS.
+    """
+    md_rendered = _render_markdown_raw(text)
+    return bleach.clean(
+        md_rendered,
+        tags=MARKDOWN_ALLOWED_TAGS,
+        attributes=MARKDOWN_ALLOWED_ATTRS,
+    )
 
 
 def render_markdown_and_cache(value, fragment_name, expires_in=0, *vary_on):

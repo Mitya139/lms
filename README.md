@@ -1,5 +1,7 @@
 ## Local Development Setup
 
+See also: Architecture overview in `docs/architecture.md` for a high‑level map of public modules and key flows.
+
 These instructions mostly repeat the process scripted in the [Dockerfile](docker-files/Dockerfile), with some minor adjustments for the local development. 
 
 Instructions below assume that they are launched from the repository root

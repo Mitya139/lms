@@ -1,3 +1,11 @@
+"""Learning domain public API views.
+
+Focus on: course listings for teachers, course assignments and students,
+and course news notifications. Only major, public endpoints are documented
+here to aid LLM reasoning; private helpers and migrations are intentionally
+omitted.
+"""
+
 from typing import Any, Dict, Optional, Type
 
 from djangorestframework_camel_case.render import (
@@ -35,6 +43,7 @@ from learning.views.views import StudentAssignmentURLParamsMixin
 
 
 class CourseNewsUnreadNotificationsView(ListAPIView):
+    """Return users with unread notifications for a course news item."""
     permission_classes = [CuratorAccessPermission]
     serializer_class = CourseNewsNotificationSerializer
 
@@ -46,9 +55,7 @@ class CourseNewsUnreadNotificationsView(ListAPIView):
 
 
 class CourseList(ListAPIView):
-    """
-    List courses the authenticated user participated in as a teacher.
-    """
+    """List courses where the authenticated user is a teacher."""
     permission_classes = [IsAuthenticated]
     serializer_class = MyCourseSerializer
 
@@ -59,20 +66,23 @@ class CourseList(ListAPIView):
 
 
 class CourseAssignmentList(RolePermissionRequiredMixin, ApiErrorsMixin, ListAPIView):
-    """List assignments of the course."""
+    """List assignments of the course (requires `CreateAssignment`)."""
     permission_classes = [CreateAssignment]
     serializer_class = CourseAssignmentSerializer
     renderer_classes = (CamelCaseJSONRenderer, CamelCaseBrowsableAPIRenderer)
     course: Course
 
     def initial(self, request, *args, **kwargs):
+        """Load the `Course` object into `self.course` for permission checks."""
         self.course = get_object_or_404(Course.objects.get_queryset(), pk=kwargs['course_id'])
         super().initial(request, *args, **kwargs)
 
     def get_permission_object(self) -> Course:
+        """Return the course object used by permission classes."""
         return self.course
 
     def get_queryset(self):
+        """Return assignments ordered by descending deadline for `course_id`."""
         return (Assignment.objects
                 .filter(course_id=self.kwargs['course_id'])
                 .order_by('-deadline_at'))
@@ -80,7 +90,7 @@ class CourseAssignmentList(RolePermissionRequiredMixin, ApiErrorsMixin, ListAPIV
 
 # FIXME: return all records with deletedAt info (useful for queue)
 class CourseStudentsList(RolePermissionRequiredMixin, APIBaseView):
-    """List of students enrolled in the course."""
+    """List students enrolled in the course (requires curator access)."""
     permission_classes = [ViewEnrollments]
     renderer_classes = (CamelCaseJSONRenderer, CamelCaseBrowsableAPIRenderer)
     course: Course
@@ -95,14 +105,21 @@ class CourseStudentsList(RolePermissionRequiredMixin, APIBaseView):
             fields = ('id', 'grade', 'student_group_id', 'student', 'student_profile_id')
 
     def initial(self, request, *args, **kwargs):
+        """Prefetch and store `self.course` for permission checks and queries."""
         self.course = get_object_or_404(Course.objects.get_queryset(),
                                         pk=kwargs['course_id'])
         super().initial(request, *args, **kwargs)
 
     def get_permission_object(self) -> Course:
+        """Return the course object used by permission classes."""
         return self.course
 
     def get(self, request: AuthenticatedAPIRequest, **kwargs: Any):
+        """Return basic student roster for the given course.
+
+        The response payload is shaped by `OutputSerializer` and includes
+        limited student information relevant to curator/teacher views.
+        """
         queryset = (Enrollment.active
                     .select_related('student')
                     .filter(course=self.course))
