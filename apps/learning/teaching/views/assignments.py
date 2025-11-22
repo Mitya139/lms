@@ -24,7 +24,7 @@ from core.api.fields import CharSeparatedField
 from core.exceptions import Redirect
 from core.http import HttpRequest
 from core.urls import reverse
-from core.utils import bucketize, render_markdown
+from core.utils import bucketize, render_rich_text
 from courses.constants import AssignmentStatus, AssignmentFormat
 from courses.models import Assignment, Course, CourseTeacher
 from courses.permissions import DeleteAssignment, EditAssignment, ViewAssignment
@@ -159,7 +159,7 @@ class AssignmentCommentUpdateView(generic.UpdateView):
 
     def form_valid(self, form):
         self.object = form.save()
-        html = render_markdown(self.object.text)
+        html = render_rich_text(self.object.text, self.object.text_html)
         return JsonResponse({"success": 1,
                              "id": self.object.pk,
                              "html": html})

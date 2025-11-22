@@ -977,6 +977,13 @@ class Assignment(TimezoneAwareMixin, TimeStampedModel):
                              max_length=140)
     text = models.TextField(_("Assignment|text"),
                             help_text=LATEX_MARKDOWN_HTML_ENABLED)
+    # New WYSIWYG storage: sanitized HTML (dual format during migration)
+    text_html = models.TextField(
+        _("Assignment|text (HTML)"),
+        help_text=_("Sanitized HTML stored by the new editor. Temporary alongside legacy Markdown."),
+        blank=True,
+        null=True,
+    )
     maximum_score = models.PositiveSmallIntegerField(
         _("Maximum score"),
         default=5,

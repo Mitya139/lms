@@ -11,7 +11,7 @@ from functools import partial
 from typing import Dict
 
 from core.urls import replace_hostname
-from core.utils import render_markdown, create_multipart_email
+from core.utils import render_rich_text, create_multipart_email
 from learning.models import AssignmentNotification, CourseNewsNotification
 
 logger = logging.getLogger(__name__)
@@ -93,7 +93,7 @@ def get_assignment_notification_context(notification: AssignmentNotification) ->
         'assignment_link': abs_url_builder(a_s.assignment.get_teacher_url()),
         'notification_created': notification.created_local(tz_override),
         'assignment_name': str(a_s.assignment),
-        'assignment_text': render_markdown(a_s.assignment.text),
+        'assignment_text': render_rich_text(a_s.assignment.text, a_s.assignment.text_html),
         'student_name': str(a_s.student),
         'deadline_at': a_s.assignment.deadline_at_local(tz=tz_override),
         'course_name': str(a_s.assignment.course.meta_course)

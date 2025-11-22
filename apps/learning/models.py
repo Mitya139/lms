@@ -728,6 +728,13 @@ class AssignmentComment(SoftDeletionModel, TimezoneAwareMixin, TimeStampedModel)
         _("AssignmentComment|text"),
         help_text=_("LaTeX+Markdown is enabled"),
         blank=True)
+    # New WYSIWYG storage: sanitized HTML (dual format during migration)
+    text_html = models.TextField(
+        _("AssignmentComment|text (HTML)"),
+        help_text=_("Sanitized HTML stored by the new editor. Temporary alongside legacy Markdown."),
+        blank=True,
+        null=True,
+    )
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_("Author"),
