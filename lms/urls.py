@@ -1,3 +1,10 @@
+"""Top-level URL configuration.
+
+Public entry point that wires together app routes for HTML and REST endpoints.
+Only the most important public inclusions are listed; see each app's `urls.py`
+for details. Media/static and debug tooling are conditionally included.
+"""
+
 from django_ses.views import SESEventWebhookView
 
 from django.apps import apps

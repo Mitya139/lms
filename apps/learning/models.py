@@ -1,3 +1,10 @@
+"""Learning domain data models.
+
+Defines core entities for enrollments, student groups, assignments lifecycle,
+and course news state. These models are referenced by REST APIs and HTML
+views across the LMS and should remain backward compatible.
+"""
+
 import datetime
 import logging
 import os

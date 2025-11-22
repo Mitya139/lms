@@ -1,3 +1,10 @@
+"""Course domain data models.
+
+Defines `Course`, `Assignment`, scheduling (classes/semesters), teachers,
+grouping, and related helpers. Widely used by views, selectors, and services
+throughout the LMS.
+"""
+
 import os.path
 from datetime import datetime, timedelta, tzinfo
 from typing import List, NamedTuple, Optional

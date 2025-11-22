@@ -1,3 +1,10 @@
+"""Core shared data models.
+
+Contains site configuration, program and location primitives, and common
+timestamped/derived mixins used across multiple apps. Public classes here are
+referenced by higher-level domain apps (courses, learning, users).
+"""
+
 from base64 import urlsafe_b64encode
 from typing import Dict, NamedTuple, NewType, Union
 

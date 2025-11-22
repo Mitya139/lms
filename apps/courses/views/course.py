@@ -1,3 +1,15 @@
+"""Public course views.
+
+Key pages:
+- `CourseDetailView`: Read‑only course page with tabbed content, teacher lists,
+  permissions for adding content, and unread news counters.
+- `CourseUpdateView`: Simple update form for course metadata (requires
+  `EditCourse`).
+
+Only public, user‑facing behavior is documented; private helpers and
+implementation details are intentionally omitted.
+"""
+
 from django.apps import apps
 from django.contrib.auth.views import redirect_to_login
 from django.db.models import Prefetch
@@ -27,6 +39,7 @@ __all__ = ('CourseDetailView', 'CourseUpdateView')
 
 
 class CourseDetailView(PermissionRequiredMixin, CourseURLParamsMixin, DetailView):
+    """Render course details with tabs, teachers, and permission‑gated actions."""
     model = Course
     permission_required = ViewCourse.name
     template_name = "lms/courses/course_detail.html"
@@ -34,6 +47,7 @@ class CourseDetailView(PermissionRequiredMixin, CourseURLParamsMixin, DetailView
     request: AuthenticatedHttpRequest
 
     def get_course_queryset(self):
+        """Optimize course query with teacher prefetch and ordering."""
         teachers = Prefetch('course_teachers',
                             queryset=(CourseTeacher.objects
                                       .select_related("teacher")
@@ -43,12 +57,20 @@ class CourseDetailView(PermissionRequiredMixin, CourseURLParamsMixin, DetailView
                 .prefetch_related(teachers))
 
     def get_permission_object(self):
+        """Use the current course for permission checks."""
         return self.course
 
     def get_object(self):
+        """Use `self.course` resolved by `CourseURLParamsMixin`."""
         return self.course
 
     def get_context_data(self, *args, **kwargs):
+        """Compose public context consumed by the `course_detail` template.
+
+        Includes: active tab, grouped teachers, key permission flags, unread
+        news counters (for eligible users), and utility references for the
+        template (e.g., `get_student_groups_url`).
+        """
         course = self.course
         # Tabs
         tab_list = get_course_tab_list(self.request, course)
@@ -104,6 +126,7 @@ class CourseDetailView(PermissionRequiredMixin, CourseURLParamsMixin, DetailView
         return context
 
     def _get_additional_context(self, course, **kwargs):
+        """Derive convenience context: timezone, enrollment, and unread news."""
         request_user = self.request.user
         tz_override = request_user.time_zone
         if request_user.has_perm(ViewOwnEnrollments.name):
@@ -129,19 +152,22 @@ class CourseDetailView(PermissionRequiredMixin, CourseURLParamsMixin, DetailView
 
 class CourseUpdateView(PermissionRequiredMixin, CourseURLParamsMixin,
                        generic.UpdateView):
+    """Form view for editing course properties (requires `EditCourse`)."""
     model = Course
     template_name = "courses/simple_crispy_form.html"
     permission_required = EditCourse.name
     form_class = CourseUpdateForm
 
     def get_object(self, queryset=None):
+        """Return the course resolved by URL parameters."""
         return self.course
 
     def get_permission_object(self):
+        """Use the current course for permission checks."""
         return self.course
 
     def get_initial(self):
-        """Keep in mind that `initial` overrides values from model dict"""
+        """Populate initial form values; prefers meta course description."""
         initial = super().get_initial()
         # Note: In edit view we always have an object
         if not self.object.description:
