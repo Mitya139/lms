@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from core.utils import render_markdown_and_cache
+from core.utils import render_markdown_and_cache, sanitize_html
 from courses.models import Assignment, Course, CourseTeacher, Semester
 
 
@@ -54,5 +54,8 @@ class BaseAssignmentSerializer(serializers.ModelSerializer):
                   'maximum_score', 'weight', 'solution_format')
 
     def get_text(self, obj: Assignment):
+        # Prefer stored HTML when available, otherwise render legacy markdown
+        if getattr(obj, 'text_html', None):
+            return sanitize_html(obj.text_html)
         return render_markdown_and_cache(obj.text, "assignment_text", 3600,
                                          obj.pk, obj.modified)

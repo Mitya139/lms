@@ -1,3 +1,10 @@
+"""Course domain data models.
+
+Defines `Course`, `Assignment`, scheduling (classes/semesters), teachers,
+grouping, and related helpers. Widely used by views, selectors, and services
+throughout the LMS.
+"""
+
 import os.path
 from datetime import datetime, timedelta, tzinfo
 from typing import List, NamedTuple, Optional
@@ -970,6 +977,13 @@ class Assignment(TimezoneAwareMixin, TimeStampedModel):
                              max_length=140)
     text = models.TextField(_("Assignment|text"),
                             help_text=LATEX_MARKDOWN_HTML_ENABLED)
+    # New WYSIWYG storage: sanitized HTML (dual format during migration)
+    text_html = models.TextField(
+        _("Assignment|text (HTML)"),
+        help_text=_("Sanitized HTML stored by the new editor. Temporary alongside legacy Markdown."),
+        blank=True,
+        null=True,
+    )
     maximum_score = models.PositiveSmallIntegerField(
         _("Maximum score"),
         default=5,

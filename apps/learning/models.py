@@ -1,3 +1,10 @@
+"""Learning domain data models.
+
+Defines core entities for enrollments, student groups, assignments lifecycle,
+and course news state. These models are referenced by REST APIs and HTML
+views across the LMS and should remain backward compatible.
+"""
+
 import datetime
 import logging
 import os
@@ -721,6 +728,13 @@ class AssignmentComment(SoftDeletionModel, TimezoneAwareMixin, TimeStampedModel)
         _("AssignmentComment|text"),
         help_text=_("LaTeX+Markdown is enabled"),
         blank=True)
+    # New WYSIWYG storage: sanitized HTML (dual format during migration)
+    text_html = models.TextField(
+        _("AssignmentComment|text (HTML)"),
+        help_text=_("Sanitized HTML stored by the new editor. Temporary alongside legacy Markdown."),
+        blank=True,
+        null=True,
+    )
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_("Author"),
