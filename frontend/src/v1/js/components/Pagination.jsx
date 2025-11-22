@@ -2,6 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from './Icon';
 
+/**
+ * Controlled pagination component with support for gaps and ellipsis.
+ *
+ * Renders a list of page buttons and optional first/last navigation. The
+ * current page and total size are provided via props, and page changes are
+ * reported through the `onChangePage` callback.
+ */
 class Pagination extends React.Component {
   static defaultProps = {
     currentPage: 1,

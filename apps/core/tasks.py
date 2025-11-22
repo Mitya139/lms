@@ -7,6 +7,13 @@ from django.contrib.contenttypes.models import ContentType
 def compute_model_fields(content_type_id, object_id, compute_fields):
     from core.db.mixins import DerivableFieldsMixin
 
+    """Recompute derived fields for a single model instance in the background.
+
+    The function resolves the model class from ``content_type_id``, fetches
+    the target object by ``object_id`` and calls its ``compute_fields``
+    implementation for the specified field names.
+    """
+
     content_type = ContentType.objects.get_for_id(content_type_id)
     model = content_type.model_class()
 

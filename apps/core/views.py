@@ -22,6 +22,12 @@ else:
 
 
 class ReadOnlyFieldsMixin(FormMixinBase):
+    """Form mixin that marks selected form fields as read-only.
+
+    Values for read-only fields are always taken from the bound instance
+    rather than user input, which prevents accidental modification while
+    still displaying them in the form.
+    """
     readonly_fields: Union[str, Iterable[str]] = ()
 
     def __init__(self, *args, **kwargs):
@@ -44,6 +50,13 @@ class ReadOnlyFieldsMixin(FormMixinBase):
 
 
 class ProtectedFormMixin(ViewMixinBase):
+    """Mixin that guards object editing with a custom permission check.
+
+    Subclasses must implement :meth:`is_form_allowed` to decide whether the
+    current user is allowed to work with the target object. If the check
+    fails, the user is redirected to the login page.
+    """
+
     def __init__(self, *args, **kwargs):
         self._cached_object = None
         # Note(lebedev): no point in calling 'super' here.
@@ -81,6 +94,12 @@ class ProtectedFormMixin(ViewMixinBase):
 
 
 class MarkdownRenderView(LoginRequiredMixin, generic.base.View):
+    """AJAX endpoint that renders markdown into sanitized HTML.
+
+    Accepts POST requests with ``text`` in the form payload and returns a
+    JSON response containing the rendered HTML or an error message.
+    """
+
     http_method_names = ['post']
 
     def post(self, request, *args, **kwargs):
@@ -95,4 +114,6 @@ class MarkdownRenderView(LoginRequiredMixin, generic.base.View):
 
 
 class MarkdownHowToHelpView(generic.TemplateView):
+    """Static documentation page describing supported markdown features."""
+
     template_name = "markdown_how_to.html"

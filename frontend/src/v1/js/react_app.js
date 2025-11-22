@@ -3,6 +3,15 @@ import ReactDOM from 'react-dom';
 
 import { showComponentError } from 'utils';
 
+/**
+ * Dynamically renders a React screen component into the given DOM element.
+ *
+ * The element must have a `data-component` attribute that points to a
+ * `screens/<ComponentName>/index` module and may optionally contain a
+ * JSON-encoded `data-init` payload with `props` and `state` fields.
+ *
+ * @param {HTMLElement} el Root element to render the React component into.
+ */
 export function renderComponent(el) {
   let componentName = el.dataset['component'];
   import(/* webpackChunkName: "[request]" */ `screens/${componentName}/index`)

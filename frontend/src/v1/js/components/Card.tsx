@@ -8,6 +8,12 @@ interface Props extends CardProps {
   href?: string
 }
 
+/**
+ * Thin wrapper around the RescUI `Card` that optionally renders as a link.
+ *
+ * When `href` is provided the component renders as an anchor tag, otherwise
+ * a plain `div` is used while preserving RescUI card styling.
+ */
 export default function Card(
   {
     className,
