@@ -608,11 +608,6 @@
             ],
             "version": "==2.21.2"
         },
-        "hoep": {
-            "editable": true,
-            "git": "https://github.com/pacahon/Hoep.git",
-            "ref": "0d4c0507dcb34d1b63a099c8b08656b66394bc37"
-        },
         "icalendar": {
             "hashes": [
                 "sha256:036dae6c027393b926c4a7c94a318a406e74d8bbf753e2b282b2bd443227c33b",

@@ -8,7 +8,7 @@ from typing import Any, Dict, Iterable, Iterator, List, Optional
 from urllib.parse import parse_qs, urlparse
 
 import bleach
-# Drop dependency on Hoep (ancient/compiled). Prefer a maintained pure‑Python markdown renderer.
+# Markdown rendering is handled by maintained pure‑Python libraries.
 # We try a few common libraries in order of preference and degrade gracefully.
 _md_backend = None
 _md_backend_name = None
@@ -28,7 +28,7 @@ try:  # markdown-it-py (modern CommonMark + many plugins)
         .use(anchors)
         .use(attrs_plugin)
     )
-except Exception:  # noqa: BLE001 - fall back silently
+except Exception:  # fall back silently
     try:  # mistune (fast, pure python)
         import mistune  # type: ignore
 
@@ -111,7 +111,7 @@ class Empty(enum.Enum):
 
 _empty = Empty.token
 
-# Deprecated (Hoep) constants removed. We keep the sanitizer as before.
+# Sanitizer allow-lists are preserved.
 
 # This is not really about markdown, This is about html tags that will be
 # saved after markdown rendering
