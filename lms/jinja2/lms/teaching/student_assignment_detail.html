@@ -118,7 +118,7 @@
                           {% endif %}
                         {% endif %}
                         {% if can_edit_comment %}
-                          <a href="{{ comment.get_update_url() }}" class="__edit pull-right">Edit</a>{% endif %}
+                          <a href="#" data-update-url="{{ comment.get_update_url() }}" class="__edit pull-right">Edit</a>{% endif %}
                       </div>
                     </div>
                   {% endif %}
@@ -359,5 +359,136 @@
       </div>
     </div>
   </div>
+
+  <script type="text/javascript">
+    (function () {
+      function initInlineCommentEditing() {
+        var container = document.getElementById('student-submission-comments');
+        if (!container) {
+          return;
+        }
+
+        container.addEventListener('click', function (event) {
+          var target = event.target;
+          var link = target.closest && target.closest('a.__edit');
+          if (!link || !container.contains(link)) {
+            return;
+          }
+
+          event.preventDefault();
+
+          var href = link.getAttribute('data-update-url');
+          if (!href) {
+            return;
+          }
+
+          var panel = link.closest('.assignment-submission');
+          if (!panel) {
+            return;
+          }
+
+          if (panel.classList.contains('is-editing')) {
+            return;
+          }
+
+          var panelBody = panel.querySelector('.panel-body');
+          var ubertext = panelBody && panelBody.querySelector('.ubertext');
+          if (!panelBody || !ubertext) {
+            return;
+          }
+
+          panel.classList.add('is-editing');
+          link.classList.add('disabled');
+
+          function closeEditor(form) {
+            if (form && form.parentNode) {
+              form.parentNode.removeChild(form);
+            }
+            ubertext.style.display = '';
+            panel.classList.remove('is-editing');
+            link.classList.remove('disabled');
+          }
+
+          fetch(href, {
+            method: 'GET',
+            credentials: 'same-origin'
+          })
+            .then(function (response) {
+              if (!response.ok) {
+                throw new Error('Failed to load editor');
+              }
+              return response.text();
+            })
+            .then(function (html) {
+              var wrapper = document.createElement('div');
+              wrapper.innerHTML = html;
+              var form = wrapper.querySelector('form') || wrapper.firstElementChild;
+              if (!form || form.tagName.toLowerCase() !== 'form') {
+                throw new Error('Edit form not found in response');
+              }
+
+              // Remove modal-specific classes
+              var modalBody = form.querySelector('.modal-body');
+              if (modalBody) {
+                modalBody.classList.remove('modal-body');
+              }
+              var modalFooter = form.querySelector('.modal-footer');
+              if (modalFooter) {
+                modalFooter.classList.remove('modal-footer');
+                modalFooter.classList.add('clearfix', 'mt-15');
+              }
+
+              var cancelBtn = form.querySelector('button[data-dismiss="modal"]');
+              if (cancelBtn) {
+                cancelBtn.textContent = 'Cancel';
+                cancelBtn.removeAttribute('data-dismiss');
+                cancelBtn.onclick = function (ev) {
+                  ev.preventDefault();
+                  closeEditor(form);
+                };
+              }
+
+              ubertext.style.display = 'none';
+              panelBody.appendChild(form);
+
+              form.addEventListener('submit', function (ev) {
+                ev.preventDefault();
+                var formData = new FormData(form);
+                fetch(form.action, {
+                  method: 'POST',
+                  credentials: 'same-origin',
+                  body: formData
+                })
+                  .then(function (response) {
+                    return response.json();
+                  })
+                  .then(function (json) {
+                    if (json && json.success === 1) {
+                      closeEditor(form);
+                      ubertext.innerHTML = json.html;
+                      if (window.MathJax && window.MathJax.Hub && typeof window.MathJax.Hub.Queue === 'function') {
+                        window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, ubertext]);
+                      }
+                    }
+                  })
+                  .catch(function () {
+                    closeEditor(form);
+                  });
+              });
+            })
+            .catch(function () {
+              panel.classList.remove('is-editing');
+              link.classList.remove('disabled');
+            });
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initInlineCommentEditing);
+      } else {
+        initInlineCommentEditing();
+      }
+    })();
+  </script>
 
 {% endblock content %}
