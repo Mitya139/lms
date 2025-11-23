@@ -1,5 +1,6 @@
 @import "./_fonts.css";
 @import "variables";
+@import "theme";
 @import "../bootstrap.custom";
 @import "bootstrap-select/sass/bootstrap-select";
 
@@ -194,37 +195,6 @@ body {
 html {
   position: relative;
   min-height: 100%;
-}
-
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  min-width: 940px;
-  margin-bottom: 0;
-  background-color: $background-grey;
-  border-top: 1px solid $color-gray-90;
-  line-height: 60px;
-  color: #9B9B9B;
-  margin-top: 75px;
-
-  .social {
-    text-align: right;
-
-    a {
-      text-align: center;
-      color: #9B9B9B;
-      padding: 0 0 0 12px;
-
-      &:hover {
-        color: #777;
-      }
-    }
-
-    i {
-      vertical-align: middle;
-    }
-  }
 }
 
 .callout h1 {

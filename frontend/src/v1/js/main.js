@@ -8,6 +8,7 @@ import 'mathjax_config';
 import UberEditor from 'components/editor';
 import { csrfSafeMethod, getCSRFToken, getSections, showComponentError, loadReactApplications, createNotification } from './utils';
 import hljs from 'highlight.js'
+import './theme-toggle';
 
 const CSC = window.__CSC__;
 

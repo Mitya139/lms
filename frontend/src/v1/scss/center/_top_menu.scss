@@ -3,7 +3,7 @@
 .header {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    margin: 0 0 28px 0;
+    margin: 0;
 
     .logo-cell {
         position: relative;
@@ -89,9 +89,9 @@
 
     .menu.lvl2 {
         width: 100%;
-        background-color: $background-grey;
+        background-color: var(--theme-bg-secondary);
         min-width: $min-width;
-        border-bottom: 1px solid $color-gray-90;
+        border-bottom: 1px solid var(--theme-border-primary);
 
         ul {
             margin-left: -10px;
@@ -102,20 +102,19 @@
             // rename with `active`
             &.active {
                 a {
-                    border-bottom-color: $color-blue;
-                    color: #000;
+                    border-bottom-color: var(--theme-info);
+                    color: var(--theme-text-content);
                 }
             }
         }
 
         a {
-            color: $color-gray-20;
+            color: var(--theme-text-content);
             line-height: 50px;
             border-bottom: 4px solid transparent;
 
             &:hover {
-                color: $color-blue;
-
+                color: var(--theme-text-link);
             }
         }
 
@@ -157,7 +156,6 @@
 
     .members-area-link {
         float: right;
-        display: inline-block;
         margin-right: 5px;
     }
 }
@@ -195,7 +193,7 @@
     .divider {
         margin: 6px 0;
         &:hover {
-            background-color: $color-gray-90;
+            background-color: var(--theme-bg-secondary);
         }
     }
 

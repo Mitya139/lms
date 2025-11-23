@@ -39,10 +39,16 @@
                       <li><a href="{{ url('auth:logout') }}">{% trans %}Logout{% endtrans %}</a></li>
                   </ul>
                 </div>
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark theme">
+                    <i class="fa fa-sun-o" id="theme-icon"></i>
+                </button>
                 {% if request.subdomain != LMS_SUBDOMAIN %}
                     <a href="{{ url('index', subdomain=LMS_SUBDOMAIN) }}" class="members-area-link">Profile</a>
                 {% endif %}
             {% else %}
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark theme">
+                    <i class="fa fa-sun-o" id="theme-icon"></i>
+                </button>
                 <a href="{{ url('auth:login') }}{% if not request.path.startswith("/login") %}?next={{ request.get_full_path()|urlencode}}{% endif %}">{% trans %}Login{% endtrans %}</a>
             {% endif %}
         </div>
