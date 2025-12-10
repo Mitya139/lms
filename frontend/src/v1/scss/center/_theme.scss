@@ -1,0 +1,448 @@
+@import "variables";
+
+// CSS Custom Properties (Variables) for Theme System
+// Default to light theme
+:root {
+  // Content area colors (these change with theme)
+  --theme-bg-content: #ffffff;
+  --theme-bg-secondary: #f8f8f8;
+  --theme-text-content: #333333;
+  --theme-text-secondary: #666666;
+  --theme-text-muted: #999999;
+  --theme-text-link: #{$link-color};
+  --theme-text-link-hover: #{$link-hover-color};
+  
+  // Border colors
+  --theme-border-primary: #dddddd;
+  --theme-border-secondary: #dddddd;
+  
+  // Component colors
+  --theme-panel-bg: #ffffff;
+  --theme-panel-heading: #f5f5f5;
+  --theme-input-bg: #ffffff;
+  --theme-input-border: #cccccc;
+  --theme-input-text: #333333;
+  --theme-table-bg: #ffffff;
+  --theme-table-stripe: #f9f9f9;
+  --theme-table-border: #dddddd;
+  --theme-select-bg: #ffffff;
+  --theme-select-text: #333333;
+  --theme-btn-default-bg: #ffffff;
+  --theme-btn-default-text: #333333;
+  --theme-btn-default-border: #cccccc;
+  
+  // Status colors (keep same for both themes)
+  --theme-success: #{$color-green};
+  --theme-warning: #{$color-orange};
+  --theme-danger: #{$color-red};
+  --theme-info: #{$color-blue};
+}
+
+// Dark theme variables
+[data-theme="dark"] {
+  // Content area colors - dark backgrounds, light text
+  --theme-bg-content: #2d2d2d;
+  --theme-bg-secondary: #3a3a3a;
+  --theme-text-content: #e8e8e8;
+  --theme-text-secondary: #b8b8b8;
+  --theme-text-muted: #888888;
+  --theme-text-link: #66b3ff;
+  --theme-text-link-hover: #99ccff;
+  
+  // Border colors - subtle for dark theme
+  --theme-border-primary: #4a4a4a;
+  --theme-border-secondary: #555555;
+  
+  // Component colors
+  --theme-panel-bg: #2d2d2d;
+  --theme-panel-heading: #3a3a3a;
+  --theme-input-bg: #333333;
+  --theme-input-border: #555555;
+  --theme-input-text: #e8e8e8;
+  --theme-table-bg: #2d2d2d;
+  --theme-table-stripe: #353535;
+  --theme-table-border: #4a4a4a;
+  --theme-select-bg: #333333;
+  --theme-select-text: #e8e8e8;
+  --theme-btn-default-bg: #3a3a3a;
+  --theme-btn-default-text: #e8e8e8;
+  --theme-btn-default-border: #555555;
+}
+
+// Theme-aware content styles (NOT header/footer - they stay dark always)
+body {
+  background-color: var(--theme-bg-content) !important;
+  color: var(--theme-text-content) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Add spacing after header
+.header + * {
+  margin-top: 28px;
+}
+
+// Main content containers
+// .container doesn't override body background by default
+
+// Force all containers and wrappers to inherit theme
+.container,
+.container-fluid,
+.row,
+.col,
+[class*="col-"] {
+  background-color: transparent !important;
+}
+
+// Main content areas that should have dark background
+.main,
+.main-content,
+.content-wrapper,
+.page-wrapper,
+#content,
+#main,
+#wrapper {
+  background-color: var(--theme-bg-content) !important;
+  color: var(--theme-text-content) !important;
+}
+
+// Content wrapper (if exists)
+.content {
+  background-color: var(--theme-bg-content);
+  color: var(--theme-text-content);
+}
+
+// Links
+a {
+  color: var(--theme-text-link);
+  
+  &:hover {
+    color: var(--theme-text-link-hover);
+  }
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  color: var(--theme-text-content) !important;
+}
+
+// Paragraphs and text
+p, span, div:not(.btn), label, small {
+  color: var(--theme-text-content);
+}
+
+// Strong emphasis text
+strong, b {
+  color: var(--theme-text-content);
+}
+
+// Tables
+table {
+  background-color: var(--theme-table-bg) !important;
+  color: var(--theme-text-content) !important;
+  border-color: var(--theme-table-border);
+  
+  th {
+    background-color: var(--theme-bg-secondary) !important;
+    color: var(--theme-text-content) !important;
+    border-color: var(--theme-table-border);
+  }
+  
+  td {
+    border-color: var(--theme-table-border);
+    color: var(--theme-text-content) !important;
+  }
+  
+  tbody tr:nth-child(odd) {
+    background-color: var(--theme-table-stripe) !important;
+  }
+}
+
+// Forms
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+textarea,
+.form-control {
+  background-color: var(--theme-input-bg) !important;
+  color: var(--theme-input-text) !important;
+  border-color: var(--theme-input-border) !important;
+  
+  &::placeholder {
+    color: var(--theme-text-muted) !important;
+  }
+  
+  &:focus {
+    background-color: var(--theme-input-bg) !important;
+    border-color: var(--theme-text-link) !important;
+    color: var(--theme-input-text) !important;
+  }
+}
+
+// Select dropdowns
+select,
+.form-control {
+  background-color: var(--theme-select-bg) !important;
+  color: var(--theme-select-text) !important;
+  border-color: var(--theme-input-border);
+  
+  option {
+    background-color: var(--theme-select-bg);
+    color: var(--theme-select-text);
+  }
+}
+
+// Bootstrap select
+.bootstrap-select {
+  .btn {
+    background-color: var(--theme-select-bg) !important;
+    color: var(--theme-select-text) !important;
+    border-color: var(--theme-input-border);
+  }
+  
+  .dropdown-menu {
+    background-color: var(--theme-bg-content);
+    
+    li a {
+      color: var(--theme-text-content);
+      
+      &:hover {
+        background-color: var(--theme-bg-secondary);
+      }
+    }
+  }
+}
+
+// Buttons (default style)
+.btn-default {
+  background-color: var(--theme-btn-default-bg) !important;
+  color: var(--theme-btn-default-text) !important;
+  border-color: var(--theme-btn-default-border);
+  
+  &:hover, &:focus {
+    background-color: var(--theme-bg-secondary) !important;
+    color: var(--theme-text-content) !important;
+  }
+}
+
+// All badges/pills
+.badge {
+  background-color: var(--theme-bg-secondary) !important;
+  color: var(--theme-text-content) !important;
+}
+
+// Form labels
+.form-group label,
+.control-label,
+label {
+  color: var(--theme-text-content) !important;
+}
+
+// Form groups
+.form-group {
+  color: var(--theme-text-content);
+}
+
+// Dropdown menus (but not header dropdown)
+.dropdown-menu {
+  background-color: var(--theme-bg-content) !important;
+  border-color: var(--theme-border-primary);
+  
+  > li > a {
+    color: var(--theme-text-content) !important;
+    
+    &:hover, &:focus {
+      background-color: var(--theme-bg-secondary) !important;
+      color: var(--theme-text-link) !important;
+    }
+  }
+  
+  .dropdown-header {
+    color: var(--theme-text-secondary);
+  }
+}
+
+// Panels
+.panel {
+  background-color: var(--theme-panel-bg) !important;
+  border-color: var(--theme-border-primary);
+  
+  .panel-heading {
+    background-color: var(--theme-panel-heading) !important;
+    color: var(--theme-text-content) !important;
+    border-color: var(--theme-border-primary);
+  }
+  
+  .panel-body {
+    background-color: var(--theme-panel-bg) !important;
+    color: var(--theme-text-content) !important;
+  }
+  
+  .panel-title {
+    color: var(--theme-text-content) !important;
+  }
+}
+
+// Cards (Bootstrap cards)
+.card {
+  background-color: var(--theme-panel-bg) !important;
+  border-color: var(--theme-border-primary);
+  color: var(--theme-text-content) !important;
+  
+  .card-header {
+    background-color: var(--theme-panel-heading) !important;
+    color: var(--theme-text-content) !important;
+    border-color: var(--theme-border-primary);
+  }
+  
+  .card-body {
+    background-color: var(--theme-panel-bg) !important;
+    color: var(--theme-text-content) !important;
+  }
+  
+  .card-footer {
+    background-color: var(--theme-panel-heading) !important;
+    color: var(--theme-text-content) !important;
+    border-color: var(--theme-border-primary);
+  }
+  
+  .card-title {
+    color: var(--theme-text-content) !important;
+  }
+}
+
+// Alerts
+.alert {
+  border-color: var(--theme-border-primary);
+  background-color: var(--theme-bg-secondary) !important;
+  color: var(--theme-text-content) !important;
+}
+
+// Wells
+.well {
+  background-color: var(--theme-bg-secondary) !important;
+  border-color: var(--theme-border-primary);
+  color: var(--theme-text-content) !important;
+}
+
+// Modals
+.modal-content {
+  background-color: var(--theme-bg-content) !important;
+  color: var(--theme-text-content) !important;
+  
+  .modal-header {
+    border-bottom-color: var(--theme-border-primary);
+    
+    .modal-title {
+      color: var(--theme-text-content) !important;
+    }
+  }
+  
+  .modal-body {
+    color: var(--theme-text-content) !important;
+  }
+  
+  .modal-footer {
+    border-top-color: var(--theme-border-primary);
+  }
+}
+
+// Code blocks
+pre, code {
+  background-color: var(--theme-bg-secondary) !important;
+  color: var(--theme-text-content) !important;
+  border-color: var(--theme-border-primary);
+}
+
+// Breadcrumbs
+.breadcrumb {
+  background-color: var(--theme-bg-secondary) !important;
+  
+  > li {
+    color: var(--theme-text-content) !important;
+    
+    + li:before {
+      color: var(--theme-text-muted);
+    }
+  }
+}
+
+// List groups
+.list-group-item {
+  background-color: var(--theme-bg-content) !important;
+  border-color: var(--theme-border-primary);
+  color: var(--theme-text-content) !important;
+}
+
+// Jumbotron
+.jumbotron {
+  background-color: var(--theme-bg-secondary) !important;
+  color: var(--theme-text-content) !important;
+}
+
+// Page header
+.page-header {
+  border-bottom-color: var(--theme-border-primary);
+  color: var(--theme-text-content) !important;
+}
+
+// Nav tabs/pills
+.nav-tabs,
+.nav-pills {
+  background-color: transparent;
+  
+  > li > a {
+    color: var(--theme-text-content);
+    
+    &:hover {
+      background-color: var(--theme-bg-secondary);
+    }
+  }
+  
+  > li.active > a {
+    background-color: var(--theme-bg-content) !important;
+    color: var(--theme-text-content) !important;
+    border-color: var(--theme-border-primary);
+  }
+}
+
+// Theme toggle button styles
+.theme-toggle {
+  background: none;
+  border: none;
+  color: var(--theme-text-header);
+  font-size: 18px;
+  padding: 8px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  float: left;
+  height: 64px;
+  line-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+  }
+  
+  &:focus {
+    outline: 2px solid var(--theme-text-link);
+    outline-offset: 2px;
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+  
+  i {
+    margin: 0;
+    color: #ffffff;
+  }
+}
