@@ -34,14 +34,28 @@
   }
   
   // Apply theme to document
-  function applyTheme(theme) {
+  function applyTheme(theme, skipTransition = false) {
     console.log('[Theme] Applying theme:', theme);
     const html = document.documentElement;
+    
+    // Disable transitions temporarily during initial load to prevent flash
+    if (skipTransition) {
+      document.body.style.transition = 'none';
+    }
     
     if (theme === DARK_THEME) {
       html.setAttribute(THEME_ATTR, DARK_THEME);
     } else {
       html.removeAttribute(THEME_ATTR);
+    }
+    
+    // Re-enable transitions after theme is applied
+    if (skipTransition) {
+      // Force reflow
+      void document.body.offsetHeight;
+      requestAnimationFrame(() => {
+        document.body.style.transition = 'background-color 0.3s ease, color 0.3s ease';
+      });
     }
     
     // Update icon
@@ -65,9 +79,9 @@
   function init() {
     console.log('[Theme] Initializing...');
     
-    // Apply saved theme immediately
+    // Apply saved theme immediately without transition to prevent flash
     const savedTheme = getSavedTheme();
-    applyTheme(savedTheme);
+    applyTheme(savedTheme, true);
     
     // Wait for DOM to be ready
     if (document.readyState === 'loading') {

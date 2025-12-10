@@ -73,7 +73,7 @@
 body {
   background-color: var(--theme-bg-content) !important;
   color: var(--theme-text-content) !important;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  // Transition is added via JS after initial load to prevent flash on page navigation
 }
 
 // Add spacing after header
@@ -284,6 +284,25 @@ label {
   .panel-title {
     color: var(--theme-text-content) !important;
   }
+  
+  .panel-footer {
+    background-color: var(--theme-panel-heading) !important;
+    color: var(--theme-text-content) !important;
+    border-color: var(--theme-border-primary);
+    
+    a {
+      color: var(--theme-text-link) !important;
+      
+      &:hover {
+        color: var(--theme-text-link-hover) !important;
+      }
+    }
+  }
+  
+  // Panel with gray background
+  &.bg-gray {
+    background-color: var(--theme-bg-secondary) !important;
+  }
 }
 
 // Cards (Bootstrap cards)
@@ -406,6 +425,183 @@ pre, code {
     background-color: var(--theme-bg-content) !important;
     color: var(--theme-text-content) !important;
     border-color: var(--theme-border-primary);
+  }
+}
+
+// Course page buttons (o-buttons-vertical)
+.o-buttons-vertical {
+  .btn {
+    background-color: var(--theme-btn-default-bg) !important;
+    color: var(--theme-btn-default-text) !important;
+    border-color: var(--theme-btn-default-border);
+    
+    &:hover, &:focus {
+      background-color: var(--theme-bg-secondary) !important;
+    }
+  }
+  
+  &.gray .btn {
+    color: var(--theme-text-content) !important;
+    border-color: var(--theme-border-primary);
+  }
+  
+  // Outline buttons (primary outline)
+  .btn-outline {
+    color: var(--theme-text-content) !important;
+    background-color: transparent !important;
+    border-color: var(--theme-border-primary) !important;
+    
+    &:hover, &:focus {
+      background-color: var(--theme-bg-secondary) !important;
+      color: var(--theme-text-content) !important;
+    }
+  }
+}
+
+// News metainfo
+.news-metainfo {
+  color: var(--theme-text-muted) !important;
+}
+
+// Course description
+.course-description {
+  color: var(--theme-text-content) !important;
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--theme-text-content) !important;
+  }
+  
+  p, span, div {
+    color: var(--theme-text-content) !important;
+  }
+}
+
+// Course main title
+.course-main-title {
+  color: var(--theme-text-content) !important;
+  
+  small {
+    color: var(--theme-text-secondary) !important;
+    
+    a {
+      color: var(--theme-text-link) !important;
+    }
+  }
+}
+
+// Course news
+#course-news {
+  .panel-body, .panel-footer {
+    background-color: var(--theme-panel-bg) !important;
+    color: var(--theme-text-content) !important;
+  }
+  
+  .date {
+    color: var(--theme-text-muted) !important;
+  }
+}
+
+// Course assignments
+#course-assignments {
+  .list-group-item {
+    background-color: var(--theme-bg-content) !important;
+    color: var(--theme-text-content) !important;
+  }
+}
+
+// Course contacts and reviews
+#course-contacts, #course-reviews {
+  h4 {
+    color: var(--theme-text-content) !important;
+  }
+}
+
+// User list on course page
+.o-users-vlist {
+  h4 {
+    color: var(--theme-text-content) !important;
+  }
+  
+  ul, li {
+    color: var(--theme-text-content) !important;
+  }
+  
+  a {
+    color: var(--theme-text-link) !important;
+    
+    &:hover {
+      color: var(--theme-text-link-hover) !important;
+    }
+  }
+}
+
+// Course detail page container
+#course-detail-page {
+  color: var(--theme-text-content) !important;
+  
+  .text-muted {
+    color: var(--theme-text-muted) !important;
+  }
+  
+  .timetable {
+    background-color: var(--theme-table-bg) !important;
+    
+    th, td {
+      color: var(--theme-text-content) !important;
+      border-color: var(--theme-table-border);
+    }
+  }
+  
+  // Tab content
+  .tab-content {
+    color: var(--theme-text-content) !important;
+    
+    .tab-pane {
+      color: var(--theme-text-content) !important;
+    }
+  }
+  
+  // Tabs
+  .nav-tabs {
+    border-bottom-color: var(--theme-border-primary);
+    
+    > li {
+      > a {
+        color: var(--theme-text-content) !important;
+        border-color: transparent;
+        
+        &:hover {
+          background-color: var(--theme-bg-secondary) !important;
+          border-color: var(--theme-border-primary) var(--theme-border-primary) transparent;
+        }
+      }
+      
+      &.active > a {
+        color: var(--theme-text-content) !important;
+        background-color: var(--theme-bg-content) !important;
+        border-color: var(--theme-border-primary) var(--theme-border-primary) transparent;
+        
+        &:hover, &:focus {
+          color: var(--theme-text-content) !important;
+          background-color: var(--theme-bg-content) !important;
+        }
+      }
+    }
+  }
+  
+  // Assignment deadlines and other specific text
+  .opens-at-text,
+  .nowrap {
+    color: var(--theme-text-muted) !important;
+  }
+  
+  // Assignment deadline styling
+  .assignment-deadline {
+    color: var(--theme-text-content) !important;
+    
+    span {
+      color: var(--theme-text-content) !important;
+    }
   }
 }
 
