@@ -4,7 +4,7 @@
     <div class="panel panel-default">
       <div class="panel-heading" role="tab" id="headingOne">
         <h4 class="panel-title">
-          <a role="button" data-toggle="collapse" href="#student-profile-{{ student_profile.pk }}"
+          <a role="button" data-bs-toggle="collapse" href="#student-profile-{{ student_profile.pk }}"
              aria-expanded="{{ "true" if loop.first else "false" }}"
              aria-controls="student-profile-{{ student_profile.pk }}">
             {{ student_profile.get_type_display() }}{% if student_profile.year_of_admission %} enrolled in {{ student_profile.year_of_admission }}{% endif %}

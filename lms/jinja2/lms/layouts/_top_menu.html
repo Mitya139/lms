@@ -23,21 +23,22 @@
         <div class="menu-right" id="login" data-user-id="{{ user.pk|default("") }}">
             {% if user.is_authenticated %}
                 <div class="dropdown">
-                  <a href="#" id="user-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <a href="#" id="user-menu" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       {%- with im = user.get_thumbnail("60x60", use_stub=True) -%}
                           <img src="{{ im.url }}" width="32" height="32" alt="{{ user.get_full_name() }}">
                       {%- endwith %}
                       <span class="caret"></span>
                   </a>
-                  <ul class="dropdown-menu pull-right" aria-labelledby="user-menu">
-                      <li class="dropdown-header">{{ user.get_short_name() }}</li>
-                      <li><a href="{{ user.get_absolute_url() }}">{% trans %}Profile{% endtrans %}</a></li>
+                  <div class="dropdown-menu dropdown-menu-end" aria-labelledby="user-menu">
+                      <h6 class="dropdown-header">{{ user.get_short_name() }}</h6>
+                      <a class="dropdown-item" href="{{ user.get_absolute_url() }}">{% trans %}Profile{% endtrans %}</a>
                       {% if user.is_staff %}
-                          <li><a href="{{ url('staff:student_search', subdomain=LMS_SUBDOMAIN) }}">Supervision</a></li>
-                          <li><a href="{{ url('admin:index') }}" target="_blank">Dashboard</a></li>
+                          <a class="dropdown-item" href="{{ url('staff:student_search', subdomain=LMS_SUBDOMAIN) }}">Supervision</a>
+                          <a class="dropdown-item" href="{{ url('admin:index') }}" target="_blank">Dashboard</a>
                       {% endif %}
-                      <li><a href="{{ url('auth:logout') }}">{% trans %}Logout{% endtrans %}</a></li>
-                  </ul>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="{{ url('auth:logout') }}">{% trans %}Logout{% endtrans %}</a>
+                  </div>
                 </div>
                 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle light/dark theme">
                     <i class="fa fa-sun-o" id="theme-icon"></i>

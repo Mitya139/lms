@@ -18,13 +18,13 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-12">
             <div class="card">
                 <h4 class="card-header bg-gray m-b-20">{{ current_term|title }}</h4>
                 <div class="panel-body">
                     <div class="row">
                         <form action="">
-                            <div class="col-xs-10">
+                            <div class="col-10">
                                 <select class="form-control" name="course_offerings[]" multiple size="2" style="display: none;">
                                     {% for course in course_offerings %}
                                         <option value="{{ course.pk }}"
@@ -41,14 +41,14 @@
                     <p class="text-muted">Overlaps found: {{ intersection|length }}</p>
                     <div class="row">
                     {% for co in results %}
-                        <div class="col-xs-6">
+                        <div class="col-6">
                             <h4>{{ co.meta_course.name }}</h4>
                         </div>
                     {% endfor %}
                     </div>
                     <div class="row">
                     {% for co in results %}
-                        <div class="col-xs-6">
+                        <div class="col-6">
                             {% if co.enrollment_set.all %}
                                 <ul class="list-group list-group-dividered">
                                     {% for e in co.enrollment_set.all %}

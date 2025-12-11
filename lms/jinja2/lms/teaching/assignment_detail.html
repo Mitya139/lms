@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 h2-and-buttons">
+    <div class="col-12 h2-and-buttons">
       <h2>
         <a href="{{ assignment.course.get_url_for_tab('assignments') }}"><span class="fa fa-angle-left"></span></a>
         {{ assignment.title }}<br>
@@ -26,7 +26,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-12">
       <div class="ubertext">
         {{ assignment.text|markdown("assignment_text", 3600, assignment.pk, assignment.modified) }}
       </div>
@@ -72,9 +72,9 @@
   </div>
   {% if a_s_list %}
     <div class="row">
-      <div class="col-xs-12">
+      <div class="col-12">
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-12">
             <table class="table" width="100%">
               <thead>
               <th>{% trans %}Student{% endtrans %}</th>

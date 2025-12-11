@@ -1,61 +1,165 @@
 /*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2015 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * Bootstrap v5.3.2 (https://getbootstrap.com)
+ * Copyright 2011-2023 The Bootstrap Authors
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
-// Note: Variables stores separately
-// Core mixins
-@import "bootstrap-sass/assets/stylesheets/bootstrap/mixins.scss";
+// Configuration
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
 
-// Reset and dependencies
-@import "bootstrap-sass/assets/stylesheets/bootstrap/normalize.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/print.scss";
-// @import "bootstrap-sass/assets/stylesheets/bootstrap/glyphicons.scss";
+// Layout & components
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/dropdown";
+@import "bootstrap/scss/button-group";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/card";
+@import "bootstrap/scss/accordion";
+@import "bootstrap/scss/breadcrumb";
+@import "bootstrap/scss/pagination";
+@import "bootstrap/scss/badge";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/progress";
+@import "bootstrap/scss/list-group";
+@import "bootstrap/scss/close";
+@import "bootstrap/scss/toasts";
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/tooltip";
+@import "bootstrap/scss/popover";
+@import "bootstrap/scss/carousel";
+@import "bootstrap/scss/spinners";
+@import "bootstrap/scss/offcanvas";
+@import "bootstrap/scss/placeholders";
 
-// Core CSS
-@import "bootstrap-sass/assets/stylesheets/bootstrap/scaffolding.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/type.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/code.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/grid.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/tables.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/forms.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/buttons.scss";
+// Helpers
+@import "bootstrap/scss/helpers";
 
-// Components
-@import "bootstrap-sass/assets/stylesheets/bootstrap/component-animations.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/dropdowns.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/button-groups.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/input-groups.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/navs.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/navbar.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/breadcrumbs.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/pager.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/labels.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/badges.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/jumbotron.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/thumbnails.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/alerts.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/progress-bars.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/media.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/list-group.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/panels.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/responsive-embed.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/wells.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/close.scss";
+// Utilities
+@import "bootstrap/scss/utilities/api";
 
-// Components w/ JavaScript
-@import "bootstrap-sass/assets/stylesheets/bootstrap/modals.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/tooltip.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/popovers.scss";
-// @import "bootstrap-sass/assets/stylesheets/bootstrap/carousel.scss";
-
-// Utility classes
-@import "bootstrap-sass/assets/stylesheets/bootstrap/utilities.scss";
-@import "bootstrap-sass/assets/stylesheets/bootstrap/responsive-utilities.scss";
-@import "bootstrap/scss/utilities/align";
-
-
+// Custom overrides
 .table>thead>tr>th {
     border-bottom: 1px solid #e4eaec;
+}
+
+// BS3 compatibility: panels -> cards migration
+.panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.375rem;
+}
+
+.panel-default {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.375rem;
+}
+
+.panel-heading {
+    padding: 0.5rem 1rem;
+    margin-bottom: 0;
+    background-color: rgba(0,0,0,.03);
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    &:first-child {
+        border-radius: calc(0.375rem - 1px) calc(0.375rem - 1px) 0 0;
+    }
+}
+
+.panel-body {
+    flex: 1 1 auto;
+    padding: 1rem 1rem;
+}
+
+.panel-footer {
+    padding: 0.5rem 1rem;
+    background-color: rgba(0,0,0,.03);
+    border-top: 1px solid rgba(0,0,0,.125);
+    &:last-child {
+        border-radius: 0 0 calc(0.375rem - 1px) calc(0.375rem - 1px);
+    }
+}
+
+.panel-title {
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+
+.panel-group {
+    .panel {
+        margin-bottom: 0;
+        border-radius: 0.375rem;
+        
+        + .panel {
+            margin-top: 0.5rem;
+        }
+    }
+}
+
+// BS3 compatibility: collapse
+.panel-collapse {
+    &.collapse {
+        display: none;
+        
+        &.show {
+            display: block;
+        }
+    }
+    
+    &.collapsing {
+        position: relative;
+        height: 0;
+        overflow: hidden;
+        transition: height 0.35s ease;
+    }
+}
+
+// BS3 compatibility: wells
+.well {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #f8f8f8;
+    border: 1px solid #e3e3e3;
+    border-radius: 0.375rem;
+}
+
+.well-sm {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    background-color: #f8f8f8;
+    border: 1px solid #e3e3e3;
+    border-radius: 0.375rem;
+}
+
+.well-lg {
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    background-color: #f8f8f8;
+    border: 1px solid #e3e3e3;
+    border-radius: 0.375rem;
 }

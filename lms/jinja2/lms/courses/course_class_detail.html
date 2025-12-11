@@ -6,7 +6,7 @@
 {%- set tz = request.user.time_zone -%}
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 h2-and-buttons">
+    <div class="col-12 h2-and-buttons">
       <h2>
         {{ course_class.name }}<br><small><a href="{{ course_class.course.get_absolute_url() }}">{{ course_class.course.meta_course.name }}</a></small>
       </h2>
@@ -27,7 +27,7 @@
     {% set can_view_course_class_materials = request.user.has_perm("courses.view_course_class_materials", course_class) %}
 
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-12">
       <table class="table table-striped">
         <tr>
           <td>{% trans %}What{% endtrans %}:</td>

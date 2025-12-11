@@ -13,7 +13,7 @@
   {%- set tz = request.user.time_zone -%}
   <div class="container" id="course-detail-page">
     <div class="row">
-      <div class="col-xs-9">
+      <div class="col-9">
         <h2 class="course-main-title">
           {{ course.meta_course.name }}{% if request.user.is_curator %}
             <a href="{{ url('admin:courses_course_change', object_id=course.pk) }}" target="_blank"><i
@@ -28,8 +28,8 @@
               <a role="tab"
                  aria-expanded="{% if tab.is_default %}true{% else %}false{% endif %}"
                  aria-controls="course-{{ tab.type }}"
-                 data-toggle="tab"
-                 data-target="#course-{{ tab.type }}"
+                 data-bs-toggle="tab"
+                 data-bs-target="#course-{{ tab.type }}"
                 {% if tab.type == "news" and unread_news is not none %}
                  data-has-unread="{% if unread_news > 0 %}true{% else %}false{% endif %}"
                  data-notifications-url="{{ course.get_course_news_notifications_url() }}"
@@ -219,7 +219,7 @@
         </div>
       </div>
 
-      <div class="col-xs-3">
+      <div class="col-3">
         {% if user.is_authenticated %}
           <div class="o-buttons-vertical">
             {% if can_leave %}

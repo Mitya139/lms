@@ -1,11 +1,39 @@
-@import "jasny-bootstrap/scss/fileinput";
+// Custom file input styles (replacement for jasny-bootstrap)
+.custom-file-input,
+.file-input-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.custom-file-label,
+.file-input-label {
+  position: relative;
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  background-color: #fff;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+}
 
 .form-group-5 > .form-group {
   margin-bottom: 5px;
 }
 
+// Legacy jasny compatibility
 .jasny.fileinput > .form-control {
   border-radius: 0;
+}
+
+.fileinput {
+  .form-control {
+    border-radius: 0.25rem;
+  }
 }
 
 .input-daterange {
@@ -56,4 +84,31 @@
 
 .clearablefileinput {
   @extend .form-control;
+}
+
+// BS3 to BS5 compatibility: input-group-addon -> input-group-text
+.input-group-addon {
+  display: flex;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #e9ecef;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+}
+
+// BS3 to BS5 compatibility: input-group-btn is no longer needed
+// Buttons inside input-group are styled directly
+.input-group-btn {
+  display: flex;
+  
+  .btn {
+    position: relative;
+    z-index: 2;
+  }
 }

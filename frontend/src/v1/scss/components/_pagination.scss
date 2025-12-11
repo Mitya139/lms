@@ -36,14 +36,16 @@
       > span,
       > button {
         margin-left: 0;
-        @include border-left-radius($border-radius-base);
+        border-top-left-radius: $border-radius-base;
+        border-bottom-left-radius: $border-radius-base;
       }
     }
     &:last-child {
       > a,
       > span,
       > button {
-        @include border-right-radius($border-radius-base);
+        border-top-right-radius: $border-radius-base;
+        border-bottom-right-radius: $border-radius-base;
       }
     }
   }
@@ -85,11 +87,21 @@
 
 // Large
 .pagination-lg {
-  @include pagination-size($padding-large-vertical, $padding-large-horizontal, $font-size-large, $line-height-large, $border-radius-large);
+  > li > a,
+  > li > span,
+  > li > button {
+    padding: $padding-large-vertical $padding-large-horizontal;
+    font-size: $font-size-lg;
+  }
 }
 
 // Small
 .pagination-sm {
-  @include pagination-size($padding-small-vertical, $padding-small-horizontal, $font-size-small, $line-height-small, $border-radius-small);
+  > li > a,
+  > li > span,
+  > li > button {
+    padding: $padding-small-vertical $padding-small-horizontal;
+    font-size: $font-size-sm;
+  }
 }
 

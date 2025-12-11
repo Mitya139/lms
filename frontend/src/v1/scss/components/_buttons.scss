@@ -1,3 +1,17 @@
+// BS3 compatibility: .btn-default doesn't exist in BS5
+// Add base styles for .btn-default
+.btn-default {
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
+  
+  &:hover, &:focus, &:active {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+  }
+}
+
 .btn-default, .btn-danger, .btn-success, .btn-primary, .btn-warning, .btn-info, .btn-link {
   &.btn-block {
     &.btn-wide {
@@ -15,7 +29,7 @@
 
 .input-group-btn {
   .btn {
-    border-radius: $btn-border-radius-base;
+    border-radius: $border-radius;
   }
 }
 

@@ -1,8 +1,9 @@
-import 'bootstrap-sass';
+// Bootstrap MUST be initialized FIRST
+import bootstrap from './bootstrap-init';
+
 import $ from 'jquery';
 import 'jgrowl/jquery.jgrowl.js';
 import 'bootstrap-select/js/bootstrap-select';
-import 'jasny-bootstrap/js/fileinput';
 
 import 'mathjax_config';
 import UberEditor from 'components/editor';
@@ -12,7 +13,38 @@ import './theme-toggle';
 
 const CSC = window.__CSC__;
 
+console.log('=== MAIN.JS LOADED ===');
+console.log('Bootstrap version:', bootstrap);
+
 $(document).ready(function () {
+  console.log('=== DOCUMENT READY ===');
+  
+  // Initialize Bootstrap 5 dropdowns
+  try {
+    const dropdownElementList = document.querySelectorAll('[data-bs-toggle="dropdown"]');
+    console.log('Found dropdowns:', dropdownElementList.length);
+    [...dropdownElementList].forEach(dropdownToggleEl => {
+      console.log('Initializing dropdown:', dropdownToggleEl);
+      const dropdown = new bootstrap.Dropdown(dropdownToggleEl);
+      console.log('Dropdown initialized:', dropdown);
+    });
+  } catch (e) {
+    console.error('Dropdown initialization error:', e);
+  }
+  
+  // Initialize Bootstrap 5 collapse (for panels, etc.)
+  try {
+    const collapseElementList = document.querySelectorAll('[data-bs-toggle="collapse"]');
+    console.log('Found collapse elements:', collapseElementList.length);
+    [...collapseElementList].forEach(collapseToggleEl => {
+      new bootstrap.Collapse(collapseToggleEl, { toggle: false });
+    });
+  } catch (e) {
+    console.error('Collapse initialization error:', e);
+  }
+  
+  console.log('=== INITIALIZATION COMPLETE ===');
+  
   configureCSRFAjax();
   displayNotifications();
   renderText();
@@ -115,6 +147,9 @@ function initUberEditors() {
     CSC.config.uberEditors.push(editor);
   });
   if ($ubereditors.length > 0) {
+    // Bootstrap 5: data-bs-toggle instead of data-toggle
+    $('a[data-bs-toggle="tab"]').on('shown.bs.tab', UberEditor.reflowOnTabToggle);
+    // Keep backward compatibility with data-toggle
     $('a[data-toggle="tab"]').on('shown.bs.tab', UberEditor.reflowOnTabToggle);
   }
 }
@@ -130,21 +165,11 @@ function initCollapsiblePanelGroups() {
 }
 
 function setupFileInputs() {
-  $('.jasny.fileinput')
-    .on('clear.bs.fileinput', function (event) {
-      $(event.target).find('.fileinput-clear-checkbox').val('on');
-      $(event.target).find('.fileinput-filename').text('No file selected');
-    })
-    .on('change.bs.fileinput', function (event) {
-      $(event.target).find('.fileinput-clear-checkbox').val('');
-    })
-    .on('reseted.bs.fileinput', function (event) {
-      $(event.target).find('.fileinput-filename').text('No file selected');
-      $(event.target).find('.fileinput-clear-checkbox').val('on');
-    });
-  const fileInputs = document.querySelectorAll('.jasny.fileinput input[type="file"]')
+  // Custom file input handling (jasny-bootstrap removed, using native)
+  const fileInputs = document.querySelectorAll('input[type="file"]')
   const maxUploadSize = window.__CSC__.config.maxUploadSize
   const maxUploadSizeStr = maxUploadSize / 1024 / 1024 + ' MiB'
+  
   fileInputs.forEach(fileInput => {
     fileInput.addEventListener('change', e => {
       for (const file of e.target.files) {

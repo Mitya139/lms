@@ -32,10 +32,10 @@
         {% csrf_token %}
         {{ transfer_form.non_field_errors() }}
         <div class="row">
-          <div class="col-xs-8">
+          <div class="col-8">
             {{ forms.field(transfer_form['student_group']) }}
           </div>
-          <div class="col-xs-4">
+          <div class="col-4">
             <input type="submit" name="change-student-group" value="Change group"
                    class="btn btn-primary btn btn-primary btn-outline btn-block -inline-submit" />
           </div>

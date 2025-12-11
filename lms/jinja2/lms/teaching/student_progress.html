@@ -7,7 +7,7 @@
   {% set course = enrollment.course %}
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 h2-and-buttons">
+      <div class="col-12 h2-and-buttons">
         <h2>
           Performance<br>
           <small>
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-12">
+      <div class="col-12">
         <a class="h4 mt-0 mb-10" style="display: inline-block" href="{{ course.get_absolute_url() }}">{{ course.name }}, {{ course.semester }}</a><br>
         <div class="mb-20">
           Course grade: {{ enrollment.get_grade_display() }}<br>

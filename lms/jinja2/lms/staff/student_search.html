@@ -3,7 +3,7 @@
 {% block content %}
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 h2-and-buttons">
+      <div class="col-12 h2-and-buttons">
         <h2>{% trans %}Student search{% endtrans %}</h2>
         <div class="btn-toolbar">
         </div>
@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-8">
+      <div class="col-8">
         <form class="user-search">
           <input type="hidden" id="ajax-uri" value="{{ json_api_uri }}">
           <div class="form-group">
@@ -21,7 +21,7 @@
           </div>
           <div class="form-group">
             <label>{% trans %}Admission year{% endtrans %}</label><br>
-            <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <div class="btn-group btn-group-sm" data-bs-toggle="buttons">
               {% for year in admission_years %}
                 <label class="btn btn-default">
                   <input type="checkbox" name="year_of_admission"
@@ -33,7 +33,7 @@
           </div>
           <div class="form-group">
             <label>University</label><br>
-            <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <div class="btn-group btn-group-sm" data-bs-toggle="buttons">
               {% for university in universities %}
                 <label class="btn btn-default">
                   <input type="checkbox" name="universities"
@@ -45,7 +45,7 @@
           </div>
           <div class="form-group">
             <label>Academic Program</label><br>
-            <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <div class="btn-group btn-group-sm" data-bs-toggle="buttons">
               {% for academic_program in academic_programs %}
                 <label class="btn btn-default">
                   <input type="checkbox" name="academic_programs"
@@ -57,7 +57,7 @@
           </div>
           <div class="form-group">
             <label>{% trans %}Groups{% endtrans %}</label><br>
-            <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <div class="btn-group btn-group-sm" data-bs-toggle="buttons">
               {% for type_id, type_name in types %}
                 <label class="btn btn-default">
                   <input type="checkbox" name="profile_types"
@@ -69,7 +69,7 @@
           </div>
           <div class="form-group">
             <label>{% trans %}Status{% endtrans %}</label><br>
-            <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <div class="btn-group btn-group-sm" data-bs-toggle="buttons">
               {% for status_id, status_name in status.items() %}
                 <label class="btn btn-default">
                   <input type="checkbox" name="status"
@@ -81,7 +81,7 @@
           </div>
           <div class="form-group">
             <label>{% trans %}Completed courses{% endtrans %}</label><br>
-            <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <div class="btn-group btn-group-sm" data-bs-toggle="buttons">
               {% for cnt in cnt_enrollments %}
                 <label class="btn btn-default">
                   <input type="checkbox" name="cnt_enrollments"
@@ -98,7 +98,7 @@
           </div>
           <div class="form-group">
             <label>Tuition-based training</label><br>
-            <div class="btn-group btn-group-sm" data-toggle="buttons">
+            <div class="btn-group btn-group-sm" data-bs-toggle="buttons">
               {% for value, label in is_paid_basis %}
                 <label class="btn btn-default">
                   <input type="checkbox" name="is_paid_basis" value="{{ value }}" autocomplete="off">{{ label }}
@@ -108,7 +108,7 @@
           </div>
         </form>
       </div>
-      <div class="col-xs-4">
+      <div class="col-4">
         <p id="user-num-container" style="display: none; font-weight: bold;"></p>
         <div id="user-table-container">
         </div>

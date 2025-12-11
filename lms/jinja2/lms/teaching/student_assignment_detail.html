@@ -18,7 +18,7 @@
   {% set request_user = request.user %}
   <div class="container" id="student-submission-comments">
     <div class="row">
-      <div class="col-xs-12 h2-and-buttons">
+      <div class="col-12 h2-and-buttons">
         <h2>
           <a href="{{ url('teaching:assignments_check_queue') }}"><span class="fa fa-angle-left"></span></a>
           {{ a_s.student.get_short_name() }}
@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-9">
+      <div class="col-9">
         <div class="csc-well">
           <div class="ubertext">
             {{ a_s.assignment.text|markdown("assignment_text", 3600, a_s.assignment.pk, a_s.assignment.modified) }}
@@ -140,12 +140,12 @@
                 </div>
               {% endif %}
               <div class="row">
-                <div class="col-xs-12">
+                <div class="col-12">
                   {{ forms.field(review_form['text']) }}
                 </div>
               </div>
               <div class="row">
-                  <div class="col-xs-12">
+                  <div class="col-12">
                       {{ review_form['attached_file'] }}
                   </div>
               </div>
@@ -172,7 +172,7 @@
         {% endif %}
       </div>
 
-      <div class="col-xs-3">
+      <div class="col-3">
         {% call info_panel() %}
           {% if is_actual_teacher and next_student_assignment %}
             {% set next_ungraded_url = url('teaching:student_assignment_detail', pk=next_student_assignment.pk, subdomain=LMS_SUBDOMAIN) %}
@@ -238,8 +238,8 @@
                 <a
                   href="#"
                   id="edit-assignee"
-                  data-toggle="modal"
-                  data-target="#update-assignee-form"
+                  data-bs-toggle="modal"
+                  data-bs-target="#update-assignee-form"
                   class="ml-5"
                 >
                   <i class="fa fa-pencil"></i>
@@ -315,7 +315,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title">Edit comment</h4>
           <p class="text-muted">
             Please don't change the meaning of the comment. The student might have seen it and started replying.<br />Just write a new one instead.
@@ -330,7 +330,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title">Reviewer Assignment Form</h4>
         </div>
         {% set assignee_form_action = url('learning-api:v1:my_course_student_assignment_assignee_update',
@@ -352,7 +352,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Update</button>
           </div>
         </form>
@@ -438,7 +438,7 @@
                 modalFooter.classList.add('clearfix', 'mt-15');
               }
 
-              var cancelBtn = form.querySelector('button[data-dismiss="modal"]');
+              var cancelBtn = form.querySelector('button[data-bs-dismiss="modal"]');
               if (cancelBtn) {
                 cancelBtn.textContent = 'Cancel';
                 cancelBtn.removeAttribute('data-dismiss');

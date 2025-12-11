@@ -3,7 +3,8 @@ import 'bootstrap-select/js/i18n/defaults-en_US';
 import { TempusDominus } from '@eonasdan/tempus-dominus'
 import '~/scss/tempus-dominus.scss'
 
-$.fn.selectpicker.Constructor.BootstrapVersion = '3';
+// Bootstrap 5 compatibility
+$.fn.selectpicker.Constructor.BootstrapVersion = '5';
 
 export const TIMEPICKER_ICONS = {
   type: 'icons',

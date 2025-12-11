@@ -12,10 +12,10 @@
         <div class="panel-group" id="questions">
             {% for qa in faq %}
                 <div class="panel">
-                    <a class="panel-heading _arrowed" id="question-{{ qa.pk }}" aria-expanded="false" href="#answer-{{ qa.pk }}">
+                    <a class="panel-heading _arrowed" id="question-{{ qa.pk }}" aria-expanded="false" href="#answer-{{ qa.pk }}" data-bs-toggle="collapse" role="button">
                       <span class="panel-title">{{ qa.question }}</span>
                     </a>
-                    <div class="panel-collapse collapse" id="answer-{{ qa.pk }}"  aria-expanded="false">
+                    <div class="panel-collapse collapse" id="answer-{{ qa.pk }}" aria-expanded="false">
                         <div class="panel-body _arrowed">
                             {% markdown 0 "warehouse_answer" qa.pk  %}
                                 {{ qa.answer|safe }}

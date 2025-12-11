@@ -3,7 +3,7 @@
 {% block content %}
   <div class="container">
     <div class="row timetable-header-row">
-      <div class="col-xs-12 h2-and-buttons">
+      <div class="col-12 h2-and-buttons">
         <h2>{{ calendar.week_label }}</h2>
         <div class="btn-toolbar">
           <div class="btn-group">
@@ -23,7 +23,7 @@
     {% with events_by_day=calendar.days() %}
       {% if events_by_day %}
         <div class="row timetable-main-row">
-          <div class="col-xs-12">
+          <div class="col-12">
             {% for day in events_by_day %}
               <h4>{{ day.date|date("l, d E Y") }}</h4>
               <table class="table timetable" width="100%">
@@ -65,7 +65,7 @@
         </div>
       {% else %}
         <div class="row">
-          <div class="col-xs-12 center-aligned">
+          <div class="col-12 center-aligned">
             <h4>{% trans %}No classes yet{% endtrans %}</h4>
           </div>
         </div>

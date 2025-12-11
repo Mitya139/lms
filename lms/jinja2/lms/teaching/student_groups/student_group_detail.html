@@ -3,7 +3,7 @@
 {% block content %}
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 h2-and-buttons">
+      <div class="col-12 h2-and-buttons">
         <h2>
           <a href="{{ get_student_groups_url(course) }}"><span class="fa fa-angle-left"></span></a>
           {{ student_group.get_name() }}<br>
@@ -19,7 +19,7 @@
         </div>
         <hr>
       </div>
-      <div id="teacher_list" class="col-xs-12">
+      <div id="teacher_list" class="col-12">
         <span><b>{% if assigned_teachers|length > 1 %}Responsible teacher:{% else %}Responsible teachers:{% endif %}</b></span>
         {% for responsible_teacher in assigned_teachers -%}
           {{ responsible_teacher.teacher.get_short_name() }}{% if not loop.last %}, {% endif %}
@@ -27,7 +27,7 @@
           Not assigned
         {%- endfor %}
       </div>
-      <div id="student_list" class="col-xs-12">
+      <div id="student_list" class="col-12">
         <h3 class="mb-15">Students</h3>
         {% if enrollments %}
           <table class="table table-borderless">

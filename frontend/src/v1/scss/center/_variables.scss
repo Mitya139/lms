@@ -1,12 +1,8 @@
-@import "bootstrap-sass/assets/stylesheets/bootstrap/variables.scss";
+// Custom variables (must be defined before Bootstrap imports)
 
-$min-width: 980px;
-
-$pre-bg: #f8f8f8;
-
+// Project-specific colors
 $color-white: #fff;
 $color-blue: #19191C;
-//$color-blue: #4078c0;
 $color-grey: #9b9b9b;
 $color-orange: #f2a654;
 $color-green: #5cb85c;
@@ -21,51 +17,111 @@ $color-gray-90: #e5e5e5;
 $background-white: #fff;
 $background-grey: #f8f8f8;
 
-$headings-small-color: $color-gray-48;
+// Bootstrap 5 variable overrides
+$min-width: 980px;
 
-$table-border-color: $color-gray-90;
-
-$btn-primary-bg: $color-blue;
-$btn-primary-border: $btn-primary-bg;
-$btn-info-bg: $state-info-bg;
-$btn-info-color: lighten($color-gray-20, 10%);
-$btn-info-border: darken($state-info-bg, 5%);
-
-$brand-success: $color-green;
-$brand-danger: #d9534f;
-
-$state-info-text: $color-blue;
-$alert-info-border: $alert-info-bg;
-$alert-info-text: $color-gray-20;
-$state-success-text: $color-green;
-$state-danger-text: $color-red;
-
-$alert-warning-border: rgba(255, 243, 230, .8);
-$alert-warning-bg: rgba(255, 243, 230, .8);
-$alert-warning-text: $color-orange;
-
-$panel-default-heading-bg: $background-grey;
-$panel-bg: $color-white;
-$panel-heading-padding: 16px;
-$panel-body-padding: 16px;
-$panel-footer-bg: inherit;
-$panel-inner-border: transparent;
-
-$header-lvl1-bg: #303033;
-$header-lvl1-active: #6B57FF;
-
-
-$border-radius-base: 3px;
-$border-radius-large: 3px;
-$border-radius-small: 3px;
-
+// Typography
 $font-family-sans-serif: "JetBrains Sans", Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Droid Sans", "Helvetica Neue", Arial, sans-serif;
 $font-family-monospace: "JetBrains Mono Variable", ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono", "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro", "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 $font-family-base: $font-family-sans-serif;
 
-$font-size-base: 16px;
-$font-size-large: ceil(($font-size-base * 1.25));
-$font-size-small: ceil(($font-size-base * .85));
+$font-size-base: 1rem;
+$font-size-lg: 1.25rem;
+$font-size-sm: .85rem;
+$line-height-base: 1.5;
+$line-height-computed: calc($font-size-base * $line-height-base);
 
+// Links
 $link-color: #3D4ACE;
 $link-hover-color: darken($link-color, 15%);
+
+// Border radius
+$border-radius: 3px;
+$border-radius-lg: 3px;
+$border-radius-sm: 3px;
+
+// Tables
+$table-border-color: $color-gray-90;
+
+// Buttons (BS5 uses different variable names)
+$primary: $color-blue;
+$success: $color-green;
+$danger: #d9534f;
+$warning: $color-orange;
+$info: #d9edf7;
+
+// Alerts
+$alert-info-border-color: #d9edf7;
+$alert-info-bg: #d9edf7;
+$alert-warning-border-color: rgba(255, 243, 230, .8);
+$alert-warning-bg: rgba(255, 243, 230, .8);
+
+// Cards (replacement for panels in BS5)
+$card-bg: $color-white;
+$card-cap-bg: $background-grey;
+$card-border-color: transparent;
+$card-spacer-y: 1rem;
+$card-spacer-x: 1rem;
+
+// Pre/Code
+$pre-bg: #f8f8f8;
+
+// Header
+$header-lvl1-bg: #303033;
+$header-lvl1-active: #6B57FF;
+
+// BS3 compatibility variables (for custom code)
+$headings-small-color: $color-gray-48;
+$state-info-text: $color-blue;
+$state-success-text: $color-green;
+$state-danger-text: $color-red;
+
+// Button background colors (BS3 style)
+$btn-success-bg: $success;
+$btn-danger-bg: $danger;
+$btn-warning-bg: $warning;
+$btn-info-bg: $info;
+
+// State backgrounds (BS3 style)
+$state-info-bg: $alert-info-bg;
+$state-warning-bg: $alert-warning-bg;
+$state-success-bg: $success;
+$state-danger-bg: $danger;
+
+// Brand colors (BS3 style)
+$brand-success: $success;
+
+// Border radius (BS3 style)
+$border-radius-base: $border-radius;
+$border-radius-large: $border-radius-lg;
+$border-radius-small: $border-radius-sm;
+
+// Padding (BS3 style)
+$padding-base-vertical: 0.375rem;
+$padding-base-horizontal: 0.75rem;
+$padding-large-vertical: 0.5rem;
+$padding-large-horizontal: 1rem;
+$padding-small-vertical: 0.25rem;
+$padding-small-horizontal: 0.5rem;
+
+// Pagination (BS3 style)
+$pagination-color: $link-color;
+$pagination-bg: #fff;
+$pagination-border: #ddd;
+$pagination-hover-color: $link-hover-color;
+$pagination-hover-border: #ddd;
+$pagination-hover-bg: #eee;
+$pagination-active-color: #fff;
+$pagination-active-bg: $primary;
+$pagination-active-border: $primary;
+$pagination-disabled-color: #999;
+$pagination-disabled-bg: #fff;
+$pagination-disabled-border: #ddd;
+
+// Cursor (BS3 style)
+$cursor-disabled: not-allowed;
+
+// Input heights (BS3 style)
+$input-height-base: calc(($font-size-base * $line-height-base) + ($padding-base-vertical * 2));
+$input-height-large: calc(($font-size-lg * $line-height-base) + ($padding-large-vertical * 2));
+$input-height-small: calc(($font-size-sm * $line-height-base) + ($padding-small-vertical * 2));

@@ -7,7 +7,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title">{% trans %}Import scores from CSV{% endtrans %}</h4>
       </div>
       <form action="{{ score_form_url }}" enctype="multipart/form-data" method="POST">
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+          <button type="button" class="btn btn-default" data-bs-dismiss="modal">{% trans %}Close{% endtrans %}</button>
           <button type="submit" class="btn btn-primary">{% trans %}Import{% endtrans %}</button>
         </div>
       </form>
@@ -61,7 +61,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title">Import course grades from CSV using enrollment ID</h4>
       </div>
       <form action="{{ course_form_url }}" enctype="multipart/form-data" method="POST">
@@ -90,7 +90,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+          <button type="button" class="btn btn-default" data-bs-dismiss="modal">{% trans %}Close{% endtrans %}</button>
           <button type="submit" class="btn btn-primary">{% trans %}Import{% endtrans %}</button>
         </div>
       </form>

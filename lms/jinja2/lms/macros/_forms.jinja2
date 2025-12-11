@@ -17,11 +17,11 @@
             <div class="controls">
                 {% if prepend_text or prepend_button or append_text or append_button %}
                   <div class="input-group">
-                    {% if prepend_button %}<span class="input-group-btn">{{ prepend_button }}</span>{% endif %}
-                    {% if prepend_text %}<span class="input-group-addon">{{ prepend_text }}</span>{% endif %}
+                    {% if prepend_button %}{{ prepend_button }}{% endif %}
+                    {% if prepend_text %}<span class="input-group-text">{{ prepend_text }}</span>{% endif %}
                     {{ bound_field|with_classes('form-control ' + input_classes) }}
-                    {% if append_text %}<span class="input-group-addon">{{ append_text }}</span>{% endif %}
-                    {% if append_button %}<span class="input-group-btn">{{ append_button }}</span>{% endif %}
+                    {% if append_text %}<span class="input-group-text">{{ append_text }}</span>{% endif %}
+                    {% if append_button %}{{ append_button }}{% endif %}
                   </div>
                 {% else %}
                   {{ bound_field|with_classes('form-control ' + input_classes) }}

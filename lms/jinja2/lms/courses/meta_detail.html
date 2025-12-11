@@ -3,7 +3,7 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 h2-and-buttons">
+            <div class="col-12 h2-and-buttons">
                 <h2>{{ meta_course.name }}</h2>
                 {% set can_update_meta_course = request.user.has_perm("courses.change_metacourse", course) %}
                 {% if can_update_meta_course %}
@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-12">
                 <div class="ubertext">
                     {{ meta_course.description|markdown("course_description", 3600, meta_course.pk, meta_course.modified) }}
                 </div>

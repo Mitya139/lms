@@ -10,5 +10,5 @@
         <input type="{{ widget.type }}" name="{{ widget.name }}" {% for name, value in widget.attrs.items %}{% if value is not False and name != 'class' %} {{ name }}{% if value is not True %}="{{ value|stringformat:'s' }}"{% endif %}{% endif %}{% endfor %}>
     </span>
     <input class="fileinput-clear-checkbox" type="hidden" name="{{ widget.checkbox_name }}">
-    <span id="{{ widget.checkbox_id }}" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">{{widget.clear_checkbox_label}}</span>
+    <span id="{{ widget.checkbox_id }}" class="input-group-addon btn btn-default fileinput-exists" data-bs-dismiss="fileinput">{{widget.clear_checkbox_label}}</span>
 </div>

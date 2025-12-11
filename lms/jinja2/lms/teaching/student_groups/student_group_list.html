@@ -3,7 +3,7 @@
 {% block content %}
   <div class="container">
     <div class="row">
-      <div class="col-xs-12 h2-and-buttons">
+      <div class="col-12 h2-and-buttons">
         <h2>
           Student Groups<br>
           <small><a href="{{ course.get_absolute_url() }}">{{ course.name }}, {{ course.semester }}</a></small>
@@ -16,7 +16,7 @@
         </div>
         <hr>
       </div>
-      <div class="col-xs-12">
+      <div class="col-12">
         {% if student_group_list %}
           <div class="list-group">
             {% for student_group in student_group_list %}

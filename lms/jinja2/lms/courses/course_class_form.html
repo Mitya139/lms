@@ -19,7 +19,7 @@
 {% block content %}
 <div class="container">
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-12">
         <h2 class="content-title mb-20">
             {% if not form.instance.pk %}Create New Class{% else %}Edit Class{% endif %}<br>
             <small><a href="{{ form.instance.course.get_absolute_url() }}">{{ form.instance.course }}</a></small>
@@ -35,8 +35,8 @@
                 {{ form.non_field_errors() }}
                 <fieldset>
                     <div class="row">
-                        <div class="col-xs-2">{{ forms.field(form['type']) }}</div>
-                        <div class="col-xs-3">{{ forms.field(form['venue']) }}</div>
+                        <div class="col-2">{{ forms.field(form['type']) }}</div>
+                        <div class="col-3">{{ forms.field(form['venue']) }}</div>
                     </div>
                     <div class="form-group">
                         <div class="form-inline">
@@ -70,10 +70,10 @@
                 <fieldset>
                     <legend>{% trans %}Visibility Settings{% endtrans %}</legend>
                     <div class="row">
-                        <div class="col-xs-5">{{ forms.field(form['materials_visibility']) }}</div>
+                        <div class="col-5">{{ forms.field(form['materials_visibility']) }}</div>
                         {% with bounded_field=form.restricted_to %}
                             {% if bounded_field.field.choices|length > 1 %}
-                                <div class="col-xs-5">{{ forms.field(form['restricted_to']) }}</div>
+                                <div class="col-5">{{ forms.field(form['restricted_to']) }}</div>
                             {% endif %}
                         {% endwith %}
                     </div>

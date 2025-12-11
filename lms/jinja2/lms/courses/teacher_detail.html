@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
 <div class="row" id="teachers-detail">
-<div class="col-xs-9 profile-body">
+<div class="col-9 profile-body">
     <h2 class="content-title">{{ teacher.get_full_name() }}</h2>
     {% if teacher.workplace %}<p>{{ teacher.workplace }}</p>{% endif %}
     {% if teacher.bio %}
@@ -42,7 +42,7 @@
         </table>
     {% endif %}
 </div>
-<div class="col-xs-3 profile-sidebar">
+<div class="col-3 profile-sidebar">
     <div class="thumbnail text-center">
         {% with im = teacher.get_thumbnail(teacher.ThumbnailSize.BASE, use_stub=True, stub_official=True) -%}
             <img alt="{{ teacher.get_full_name() }}" src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"/>

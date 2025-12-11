@@ -1,7 +1,10 @@
 @import "./_fonts.css";
+// Import variables BEFORE Bootstrap for proper overrides
 @import "variables";
-@import "theme";
+// Import Bootstrap 5
 @import "../bootstrap.custom";
+// Import theme after Bootstrap
+@import "theme";
 @import "bootstrap-select/sass/bootstrap-select";
 
 @import "top_menu";
@@ -116,6 +119,12 @@ page[size="A4"] {
 
 .page-header {
   margin-top: 0;
+  display: block;
+  width: 100%;
+  clear: both;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #e5e5e5;
 
   h1, h2, h3, h4, h5 {
       margin-top: 0;
@@ -126,10 +135,12 @@ page[size="A4"] {
     @extend .page-header;
     text-align: center;
     margin-top: 40px;
+    display: block;
+    width: 100%;
+    clear: both;
 
     h1 {
         text-align: center;
-
     }
 
     &._supported {
@@ -143,6 +154,10 @@ page[size="A4"] {
 
 .content-title {
   margin-top: 0!important;
+  display: block;
+  width: 100%;
+  clear: both;
+  margin-bottom: 1rem;
 }
 
 // TODO: move somewhere. Replace in admission.scss div.square with this styles?
@@ -195,6 +210,20 @@ body {
 html {
   position: relative;
   min-height: 100%;
+}
+
+// Fix layout issues: ensure content clears floated navigation
+.container {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+// Bootstrap 5: tables should be below floated elements
+.table {
+  clear: both;
 }
 
 .callout h1 {
@@ -277,19 +306,35 @@ h2 {
 }
 
 .h2-and-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  flex-basis: 100%;
+  
   h2 {
-    float: left;
     margin-top: 0;
+    margin-bottom: 0;
+    flex: 1 1 auto;
   }
 
   .btn-toolbar {
-    float: right;
     margin-bottom: 10px;
+    flex: 0 0 auto;
   }
 
   hr {
-    clear: both;
+    width: 100%;
+    margin-top: 0;
+    flex-basis: 100%;
   }
+}
+
+// Fix for .h2-and-buttons inside .col-*
+.row > .col-12 > .h2-and-buttons,
+.row > [class*="col-"] > .h2-and-buttons {
+  width: 100%;
 }
 
 .marks-sheet-csv-link .reason {

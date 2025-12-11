@@ -15,7 +15,7 @@
 {% block content %}
   <div class="container" id="student-submission-comments">
     <div class="row">
-      <div class="col-xs-12 h2-and-buttons">
+      <div class="col-12 h2-and-buttons">
         <h2>
           <a href="{{ url('study:assignment_list') }}"><span class="fa fa-angle-left"></span></a>
           {{ a_s.assignment.title }} <br>
@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-9">
+      <div class="col-9">
         <div class="csc-well">
           <div class="ubertext">
             {{ a_s.assignment.text|markdown("assignment_text", 3600, a_s.assignment.pk, a_s.assignment.modified) }}
@@ -187,7 +187,7 @@
         {% endif %}
       </div>
 
-      <div class="col-xs-3">
+      <div class="col-3">
         {% call info_panel() %}
           {% call info_panel_row(_("Status")) %}
             {{ a_s.get_status_display() }}

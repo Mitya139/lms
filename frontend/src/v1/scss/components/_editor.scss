@@ -10,10 +10,34 @@
   }
 
   table {
-    @extend .table;
-    @extend .table-bordered;
-    @extend .table-condensed;
-    @extend .table-striped;
+    // BS5: Apply table styles directly instead of @extend
+    width: 100%;
+    margin-bottom: 1rem;
+    color: inherit;
+    vertical-align: top;
+    border-color: #dee2e6;
+    
+    // table-bordered
+    border: 1px solid #dee2e6;
+    
+    // table-sm (compact padding) with border
+    > :not(caption) > * > * {
+      border-width: 1px 0;
+      padding: 0.25rem 0.25rem;
+    }
+    
+    > tbody {
+      vertical-align: inherit;
+    }
+    
+    > thead {
+      vertical-align: bottom;
+    }
+    
+    // table-striped
+    > tbody > tr:nth-of-type(odd) > * {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
   }
 
   img {

@@ -1,10 +1,16 @@
 .__courses-filter {
+  // BS5: form-inline removed, use flexbox
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  
   .form-group {
     padding-left: 20px;
     display: inline-block;
+    margin-bottom: 0;
   }
-
-
 }
 
 .__courses-filter--academic-year {

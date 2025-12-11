@@ -16,6 +16,9 @@
   --theme-border-primary: #dddddd;
   --theme-border-secondary: #dddddd;
   
+  // Hover states
+  --theme-bg-hover: #e9ecef;
+  
   // Component colors
   --theme-panel-bg: #ffffff;
   --theme-panel-heading: #f5f5f5;
@@ -52,6 +55,9 @@
   // Border colors - subtle for dark theme
   --theme-border-primary: #4a4a4a;
   --theme-border-secondary: #555555;
+  
+  // Hover states
+  --theme-bg-hover: #454545;
   
   // Component colors
   --theme-panel-bg: #2d2d2d;
@@ -251,7 +257,18 @@ label {
   background-color: var(--theme-bg-content) !important;
   border-color: var(--theme-border-primary);
   
+  // BS3 style
   > li > a {
+    color: var(--theme-text-content) !important;
+    
+    &:hover, &:focus {
+      background-color: var(--theme-bg-secondary) !important;
+      color: var(--theme-text-link) !important;
+    }
+  }
+  
+  // BS5 style
+  .dropdown-item {
     color: var(--theme-text-content) !important;
     
     &:hover, &:focus {
